@@ -33,9 +33,11 @@ typedef enum TLevel: NSUInteger {
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *btnLevel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *setting;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentLevel;
 
 - (IBAction)levelSelect:(id)sender;
 - (IBAction)settingApp:(id)sender;
+- (IBAction)leverSelect_Action:(id)sender;
 
 
 @end

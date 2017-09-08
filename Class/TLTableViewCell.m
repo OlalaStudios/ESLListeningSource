@@ -13,6 +13,10 @@
 @synthesize avata = _avata;
 @synthesize title = _title;
 
+-(void)drawRect:(CGRect)rect{
+    [super drawRect:rect];
+}
+
 -(void)setState:(LessonState)state{
     _state = state;
     
@@ -34,8 +38,12 @@
 }
 
 - (void)awakeFromNib {
+    
     [super awakeFromNib];
     // Initialization code
+    
+    self.layer.cornerRadius = 10.0;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     _state = kNone;
 }
@@ -44,6 +52,12 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setFrame:(CGRect)frame {
+    frame.origin.x += 5;
+    frame.size.width -= 2 * 5;
+    [super setFrame:frame];
 }
 
 @end

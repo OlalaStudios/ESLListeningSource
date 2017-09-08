@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DownloadButton/PKDownloadButton.h>
 #import "PlayerBarView.h"
 
 @import GoogleMobileAds;
@@ -17,7 +18,7 @@
 
 @end
 
-@interface TLListeningViewController : UIViewController <PlayerBarViewDelegate,UITableViewDelegate,UITableViewDataSource,GADInterstitialDelegate>{
+@interface TLListeningViewController : UIViewController <PlayerBarViewDelegate,UITableViewDelegate,UITableViewDataSource,GADInterstitialDelegate,PKDownloadButtonDelegate>{
     
     NSString *playerPath;
     NSString *scriptPath;
@@ -34,15 +35,18 @@
 
 @property id<TLListeningViewDelegate>   lessonDelegate;
 
-@property (weak, nonatomic) IBOutlet PlayerBarView *playerBar;
-@property (weak, nonatomic) IBOutlet UITextView *transcripView;
-@property (weak, nonatomic) IBOutlet UITableView *tableQuestion;
+@property (weak, nonatomic) IBOutlet PlayerBarView  *playerBar;
+@property (weak, nonatomic) IBOutlet UITextView     *transcripView;
+@property (weak, nonatomic) IBOutlet UITableView    *tableQuestion;
+@property (weak, nonatomic) IBOutlet UILabel        *currentTime;
+@property (weak, nonatomic) IBOutlet PKDownloadButton *btdownload;
 
 -(void)setPlayerURL:(NSString*)url;
 -(void)setScriptURL:(NSString*)url;
 -(void)setQuestions:(NSArray*)question;
 
 - (IBAction)showScript:(id)sender;
+
 - (void)stopListening;
 
 @end

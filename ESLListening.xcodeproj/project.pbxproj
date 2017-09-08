@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9FF4601022FA754E422780E5 /* libPods-ESLListening.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B547D6CDAF3F45B53AE180 /* libPods-ESLListening.a */; };
 		BF61F0551E1E5A5200ED824F /* transcript.png in Resources */ = {isa = PBXBuildFile; fileRef = BF61F0501E1E5A5200ED824F /* transcript.png */; };
 		BF61F0561E1E5A5200ED824F /* listening.png in Resources */ = {isa = PBXBuildFile; fileRef = BF61F0511E1E5A5200ED824F /* listening.png */; };
 		BF61F0571E1E5A5200ED824F /* checklist.png in Resources */ = {isa = PBXBuildFile; fileRef = BF61F0521E1E5A5200ED824F /* checklist.png */; };
@@ -153,9 +154,15 @@
 		BFEB53141E1D0C100064F775 /* EnglishLanguageCenter.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BFEB53131E1D0C100064F775 /* EnglishLanguageCenter.rtf */; };
 		BFEB53161E1D0CE40064F775 /* GreatApartmentLiving.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BFEB53151E1D0CE40064F775 /* GreatApartmentLiving.rtf */; };
 		BFF52E4C1E166EB0008EC4B1 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFF52E4B1E166EB0008EC4B1 /* GoogleMobileAds.framework */; };
+		EA55C9941F5EA6CB0009D7F0 /* TLSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = EA55C9931F5EA6CB0009D7F0 /* TLSlider.m */; };
+		EA55C9961F5EAB750009D7F0 /* slider.png in Resources */ = {isa = PBXBuildFile; fileRef = EA55C9951F5EAB750009D7F0 /* slider.png */; };
+		EA55C9981F5EB8C80009D7F0 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = EA55C9971F5EB8C80009D7F0 /* download.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		25B547D6CDAF3F45B53AE180 /* libPods-ESLListening.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ESLListening.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A587951FCB615D9E8AE9A2C /* Pods-ESLListening.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ESLListening.release.xcconfig"; path = "Pods/Target Support Files/Pods-ESLListening/Pods-ESLListening.release.xcconfig"; sourceTree = "<group>"; };
+		5A9F0A9E9742A7930B3DA069 /* Pods-ESLListening.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ESLListening.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ESLListening/Pods-ESLListening.debug.xcconfig"; sourceTree = "<group>"; };
 		BF61F0501E1E5A5200ED824F /* transcript.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transcript.png; sourceTree = "<group>"; };
 		BF61F0511E1E5A5200ED824F /* listening.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listening.png; sourceTree = "<group>"; };
 		BF61F0521E1E5A5200ED824F /* checklist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checklist.png; sourceTree = "<group>"; };
@@ -308,8 +315,8 @@
 		BFD473F51E07E4CD009FCA91 /* PlayerBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerBarButton.m; sourceTree = "<group>"; };
 		BFD473F61E07E4CD009FCA91 /* PlayerBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerBarView.h; sourceTree = "<group>"; };
 		BFD473F71E07E4CD009FCA91 /* PlayerBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerBarView.m; sourceTree = "<group>"; };
-		BFD473F81E07E4CD009FCA91 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		BFD473F91E07E4CD009FCA91 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		BFD473F81E07E4CD009FCA91 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ../Class/Reachability.h; sourceTree = "<group>"; };
+		BFD473F91E07E4CD009FCA91 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../Class/Reachability.m; sourceTree = "<group>"; };
 		BFD473FD1E07E4D2009FCA91 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		BFD473FE1E07E4D2009FCA91 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		BFE650911E0A5C3200E74303 /* music.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = music.png; sourceTree = "<group>"; };
@@ -317,6 +324,10 @@
 		BFEB53131E1D0C100064F775 /* EnglishLanguageCenter.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = EnglishLanguageCenter.rtf; sourceTree = "<group>"; };
 		BFEB53151E1D0CE40064F775 /* GreatApartmentLiving.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = GreatApartmentLiving.rtf; sourceTree = "<group>"; };
 		BFF52E4B1E166EB0008EC4B1 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		EA55C9921F5EA6CB0009D7F0 /* TLSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLSlider.h; sourceTree = "<group>"; };
+		EA55C9931F5EA6CB0009D7F0 /* TLSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLSlider.m; sourceTree = "<group>"; };
+		EA55C9951F5EAB750009D7F0 /* slider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider.png; sourceTree = "<group>"; };
+		EA55C9971F5EB8C80009D7F0 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,12 +348,22 @@
 				BF61F0631E1E7C8500ED824F /* AudioToolbox.framework in Frameworks */,
 				BF61F0611E1E7C7700ED824F /* AdSupport.framework in Frameworks */,
 				BFF52E4C1E166EB0008EC4B1 /* GoogleMobileAds.framework in Frameworks */,
+				9FF4601022FA754E422780E5 /* libPods-ESLListening.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C01650B0BA5C3755FD51160 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5A9F0A9E9742A7930B3DA069 /* Pods-ESLListening.debug.xcconfig */,
+				5A587951FCB615D9E8AE9A2C /* Pods-ESLListening.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BF61F05F1E1E7C7700ED824F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,6 +379,7 @@
 				BF61F0641E1E7C9100ED824F /* AVFoundation.framework */,
 				BF61F0621E1E7C8500ED824F /* AudioToolbox.framework */,
 				BF61F0601E1E7C7700ED824F /* AdSupport.framework */,
+				25B547D6CDAF3F45B53AE180 /* libPods-ESLListening.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -488,6 +510,8 @@
 				BFACE22D1E23AA880021E10F /* Appirater.h */,
 				BFACE22E1E23AA880021E10F /* Appirater.m */,
 				BFACE22F1E23AA880021E10F /* AppiraterDelegate.h */,
+				BFD473F81E07E4CD009FCA91 /* Reachability.h */,
+				BFD473F91E07E4CD009FCA91 /* Reachability.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -513,6 +537,7 @@
 				BFD473D01E07CCAA009FCA91 /* ESLListening */,
 				BFD473CF1E07CCA9009FCA91 /* Products */,
 				BF61F05F1E1E7C7700ED824F /* Frameworks */,
+				9C01650B0BA5C3755FD51160 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -551,6 +576,8 @@
 		BFD473E81E07D414009FCA91 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EA55C9971F5EB8C80009D7F0 /* download.png */,
+				EA55C9951F5EAB750009D7F0 /* slider.png */,
 				BFACE2311E23AC4F0021E10F /* setting.png */,
 				BF61F05D1E1E6FDE00ED824F /* background.png */,
 				BF61F0591E1E671600ED824F /* esl.png */,
@@ -573,15 +600,8 @@
 		BFD473EB1E07DDD7009FCA91 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				BFD473F41E07E4CD009FCA91 /* PlayerBarButton.h */,
-				BFD473F51E07E4CD009FCA91 /* PlayerBarButton.m */,
-				BFD473F61E07E4CD009FCA91 /* PlayerBarView.h */,
-				BFD473F71E07E4CD009FCA91 /* PlayerBarView.m */,
-				BFD473F81E07E4CD009FCA91 /* Reachability.h */,
-				BFD473F91E07E4CD009FCA91 /* Reachability.m */,
-				BFD473EC1E07DDFE009FCA91 /* TLTableViewCell.h */,
-				BFD473ED1E07DDFE009FCA91 /* TLTableViewCell.m */,
-				BFD473EF1E07DE51009FCA91 /* TLTableViewCell.xib */,
+				EAF407501F5FD04B00770820 /* Player */,
+				EAF4074F1F5FD03400770820 /* Cell */,
 				BFD473F11E07E272009FCA91 /* TLListeningViewController.h */,
 				BFD473F21E07E272009FCA91 /* TLListeningViewController.m */,
 				BFB57CA51E0938100041939D /* TLMainViewController.h */,
@@ -589,9 +609,8 @@
 				BF884E6A1E0BC8F100219A22 /* TLQuestionTableViewCell.h */,
 				BF884E6B1E0BC8F100219A22 /* TLQuestionTableViewCell.m */,
 				BF884E6D1E0BC90300219A22 /* TLQuestionTableViewCell.xib */,
-				BF884E741E0BCFE500219A22 /* TLQuestionHeaderCell.h */,
-				BF884E751E0BCFE500219A22 /* TLQuestionHeaderCell.m */,
-				BF884E721E0BCE4000219A22 /* TLQuestionHeaderCell.xib */,
+				EA55C9921F5EA6CB0009D7F0 /* TLSlider.h */,
+				EA55C9931F5EA6CB0009D7F0 /* TLSlider.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -606,6 +625,30 @@
 			path = Metadata;
 			sourceTree = "<group>";
 		};
+		EAF4074F1F5FD03400770820 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				BFD473EC1E07DDFE009FCA91 /* TLTableViewCell.h */,
+				BFD473ED1E07DDFE009FCA91 /* TLTableViewCell.m */,
+				BFD473EF1E07DE51009FCA91 /* TLTableViewCell.xib */,
+				BF884E741E0BCFE500219A22 /* TLQuestionHeaderCell.h */,
+				BF884E751E0BCFE500219A22 /* TLQuestionHeaderCell.m */,
+				BF884E721E0BCE4000219A22 /* TLQuestionHeaderCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		EAF407501F5FD04B00770820 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				BFD473F41E07E4CD009FCA91 /* PlayerBarButton.h */,
+				BFD473F51E07E4CD009FCA91 /* PlayerBarButton.m */,
+				BFD473F61E07E4CD009FCA91 /* PlayerBarView.h */,
+				BFD473F71E07E4CD009FCA91 /* PlayerBarView.m */,
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -613,9 +656,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFD473E51E07CCAA009FCA91 /* Build configuration list for PBXNativeTarget "ESLListening" */;
 			buildPhases = (
+				07BA007D0E10290CBE6C0B28 /* [CP] Check Pods Manifest.lock */,
 				BFD473CA1E07CCA9009FCA91 /* Sources */,
 				BFD473CB1E07CCA9009FCA91 /* Frameworks */,
 				BFD473CC1E07CCA9009FCA91 /* Resources */,
+				83BC522208C1171CC66AB165 /* [CP] Embed Pods Frameworks */,
+				FB901723D6A79401CEB312BE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -675,6 +721,7 @@
 				BF91CF481E10EC8300167D1E /* DatingGame.rtf in Resources */,
 				BF707CC11E13BC3100EB6DAC /* DriverLicense.rtf in Resources */,
 				BF91CF5E1E111BAF00167D1E /* HolidayTraditions.rtf in Resources */,
+				EA55C9961F5EAB750009D7F0 /* slider.png in Resources */,
 				BF91CF3D1E10EC8300167D1E /* AirportArrival.rtf in Resources */,
 				BFD473F01E07DE51009FCA91 /* TLTableViewCell.xib in Resources */,
 				BF707CDB1E13CF4800EB6DAC /* DatingViolence.rtf in Resources */,
@@ -764,6 +811,7 @@
 				BF91CF4C1E10F5E200167D1E /* AFunDay.rtf in Resources */,
 				BF91CF641E111ED900167D1E /* MeetingSingles.rtf in Resources */,
 				BF707CB71E13AB8E00EB6DAC /* FindingtheRightJob.rtf in Resources */,
+				EA55C9981F5EB8C80009D7F0 /* download.png in Resources */,
 				BF707CCB1E13C40000EB6DAC /* AGreatCarDeal.rtf in Resources */,
 				BF91CF561E1109A100167D1E /* GourmetCooking.rtf in Resources */,
 				BF64D1C51E1BBFB500C88082 /* EasyPetCare.rtf in Resources */,
@@ -789,6 +837,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		07BA007D0E10290CBE6C0B28 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		83BC522208C1171CC66AB165 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ESLListening/Pods-ESLListening-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB901723D6A79401CEB312BE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ESLListening/Pods-ESLListening-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BFD473CA1E07CCA9009FCA91 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -800,6 +896,7 @@
 				BFB57CA71E0938100041939D /* TLMainViewController.m in Sources */,
 				BFD473FC1E07E4CD009FCA91 /* Reachability.m in Sources */,
 				BFD473D61E07CCAA009FCA91 /* AppDelegate.m in Sources */,
+				EA55C9941F5EA6CB0009D7F0 /* TLSlider.m in Sources */,
 				BF884E761E0BCFE500219A22 /* TLQuestionHeaderCell.m in Sources */,
 				BFD473D31E07CCAA009FCA91 /* main.m in Sources */,
 				BF884E6C1E0BC8F100219A22 /* TLQuestionTableViewCell.m in Sources */,
@@ -918,6 +1015,7 @@
 		};
 		BFD473E61E07CCAA009FCA91 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A9F0A9E9742A7930B3DA069 /* Pods-ESLListening.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -941,6 +1039,7 @@
 		};
 		BFD473E71E07CCAA009FCA91 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A587951FCB615D9E8AE9A2C /* Pods-ESLListening.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (

@@ -9,6 +9,9 @@
 #import "TLListeningViewController.h"
 #import "TLQuestionTableViewCell.h"
 #import "TLQuestionHeaderCell.h"
+#import "UIImage+PKDownloadButton.h"
+
+#define ESLFolderName  @"ESLAudio"
 
 typedef enum Answer: NSUInteger {
     AnswerA,
@@ -16,11 +19,16 @@ typedef enum Answer: NSUInteger {
     AnswerC,
 } Answer;
 
-@interface TLListeningViewController ()
+@interface TLListeningViewController (){
+    
+}
 
 @end
 
-@implementation TLListeningViewController
+@implementation TLListeningViewController{
+    NSMutableData *receivedData;
+    long long expectedBytes;
+}
 @synthesize lessonDelegate = _lessonDelegate;
 
 - (void)viewDidLoad {
@@ -40,19 +48,52 @@ typedef enum Answer: NSUInteger {
     [[_tableQuestion tableHeaderView] setNeedsLayout];
     [[_tableQuestion tableHeaderView] layoutIfNeeded];
     [_tableQuestion setAllowsMultipleSelection:YES];
-    [_tableQuestion setSeparatorColor:[UIColor orangeColor]];
     [_tableQuestion registerNib:[UINib nibWithNibName:@"TLQuestionTableViewCell" bundle:nil] forCellReuseIdentifier:@"idcellquestion"];
     [_tableQuestion registerNib:[UINib nibWithNibName:@"TLQuestionHeaderCell" bundle:nil] forHeaderFooterViewReuseIdentifier:@"idheaderquestion"];
     
     [self.navigationController.navigationBar setTintColor:[UIColor orangeColor]];
     [self.navigationController setTitle:self.title];
     
-    [_playerBar setPlayerURL:playerPath];
-    [_playerBar setPlayerBarDelegate:self];
-    [_playerBar loadContent];
+    [self setupDownloadButton];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *audiopath = [[documentsDirectory stringByAppendingPathComponent:ESLFolderName] stringByAppendingPathComponent:[self.title stringByAppendingString:@".mp3"]];
+    
+    if ([self checklocalfile:audiopath]) {
+        [_playerBar setPlayerURL:audiopath];
+        [_playerBar setPlayerBarDelegate:self];
+        [_playerBar setCategory:kCategory_Local];
+        [_playerBar loadContent];
+    }
+    else{
+        [_playerBar setPlayerURL:playerPath];
+        [_playerBar setPlayerBarDelegate:self];
+        [_playerBar setCategory:kCategory_Internet];
+        [_playerBar loadContent];
+    }
     
     //show ads
     _interstitial = [self createAndLoadInterstitial];
+}
+
+-(void)setupDownloadButton{
+
+    self.btdownload.stopDownloadButton.tintColor = [UIColor orangeColor];
+    self.btdownload.stopDownloadButton.filledLineStyleOuter = YES;
+    
+    self.btdownload.pendingView.tintColor = [UIColor orangeColor];
+    self.btdownload.pendingView.radius = 24.f;
+    self.btdownload.pendingView.emptyLineRadians = 2.f;
+    self.btdownload.pendingView.spinTime = 3.f;
+    self.btdownload.delegate = self;
+    
+    [self.btdownload.startDownloadButton setImage:[UIImage imageNamed:@"download"] forState:UIControlStateNormal];
+}
+
+-(BOOL)checklocalfile:(NSString*)strUrl{
+    
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,9 +107,7 @@ typedef enum Answer: NSUInteger {
 
 -(void)viewWillDisappear:(BOOL)animated{
     
-    if (!_adsloaded) {
-        [_playerBar stop];
-    }
+    [_playerBar stop];
     
     if (_lessonDelegate && _startLearning) {
         [_lessonDelegate didFinishLessonWithScore:score total:5];
@@ -80,7 +119,7 @@ typedef enum Answer: NSUInteger {
     _interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-4039533744360639/8118292903"];
     
     GADRequest *request = [GADRequest request];
-//    request.testDevices = @[kGADSimulatorID,@"aea500effe80e30d5b9edfd352b1602d"];
+    request.testDevices = @[kGADSimulatorID,@"aea500effe80e30d5b9edfd352b1602d"];
     
     [_interstitial setDelegate:self];
     [_interstitial loadRequest:request];
@@ -118,6 +157,31 @@ typedef enum Answer: NSUInteger {
 }
 */
 
+#pragma mark - PKDownloadButtonDelegate
+
+- (void)downloadButtonTapped:(PKDownloadButton *)downloadButton
+                currentState:(PKDownloadButtonState)state {
+    switch (state) {
+        case kPKDownloadButtonState_StartDownload:
+            self.btdownload.state = kPKDownloadButtonState_Pending;
+            [self startDownload:playerPath];
+            break;
+        case kPKDownloadButtonState_Pending:
+            self.btdownload.state = kPKDownloadButtonState_StartDownload;
+            break;
+        case kPKDownloadButtonState_Downloading:
+            self.btdownload.state = kPKDownloadButtonState_StartDownload;
+            break;
+        case kPKDownloadButtonState_Downloaded:
+            self.btdownload.state = kPKDownloadButtonState_StartDownload;
+            break;
+        default:
+            NSAssert(NO, @"unsupported state");
+            break;
+    }
+}
+
+
 #pragma mark - Player Bar Delegate
 -(void)didFinishPlayer{
     
@@ -151,6 +215,16 @@ typedef enum Answer: NSUInteger {
         [_interstitial presentFromRootViewController:self];
         _adsloaded = YES;
     }
+}
+
+-(void)didUpdateCurrentTime:(NSTimeInterval)ctime{
+    
+    NSUInteger durationSeconds = ctime;
+    NSUInteger minutes = floor(durationSeconds % 3600 / 60);
+    NSUInteger seconds = floor(durationSeconds % 3600 % 60);
+    NSString *time = [NSString stringWithFormat:@"%02ld:%02ld", minutes, seconds];
+    
+    [_currentTime setText:time];
 }
 
 -(void)didClickPlayer
@@ -205,11 +279,77 @@ typedef enum Answer: NSUInteger {
         
         NSString *filePath = [[NSBundle mainBundle] pathForResource:scriptPath ofType:@"rtf"];
         _transcripView.attributedText =[[NSAttributedString alloc] initWithFileURL:[NSURL fileURLWithPath:filePath] options:nil documentAttributes:nil error:nil];
+        
+        [sender setTitle:@"question"];
     }
     else{
         [_transcripView setHidden:YES];
         [_tableQuestion setHidden:NO];
+        
+        [sender setTitle:@"script"];
     }
+}
+
+#pragma mark - Download Delegate
+-(void)startDownload:(NSString*)strUrl{
+    NSURL *url = [NSURL URLWithString:strUrl];
+    NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
+                                                cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
+    receivedData = [[NSMutableData alloc] initWithLength:0];
+    NSURLConnection * connection = [[NSURLConnection alloc] initWithRequest:theRequest
+                                                                   delegate:self
+                                                           startImmediately:YES];
+    
+    [connection start];
+}
+
+- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [receivedData setLength:0];
+    expectedBytes = [response expectedContentLength];
+}
+
+- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    
+    self.btdownload.state = kPKDownloadButtonState_Downloading;
+    
+    [receivedData appendData:data];
+    float progressive = (float)[receivedData length] / (float)expectedBytes;
+    
+    self.btdownload.stopDownloadButton.progress = progressive;
+}
+
+- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    self.btdownload.state = kPKDownloadButtonState_Pending;
+}
+
+- (NSCachedURLResponse *) connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
+    return nil;
+}
+
+- (void) connectionDidFinishLoading:(NSURLConnection *)connection {
+    
+    self.btdownload.state = kPKDownloadButtonState_Downloaded;
+    
+    
+    // Use GCD's background queue
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *audiopath = [[documentsDirectory stringByAppendingPathComponent:ESLFolderName] stringByAppendingPathComponent:[self.title stringByAppendingString:@".mp3"]];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        if([receivedData writeToFile:audiopath atomically:YES]){
+            NSLog(@"save file success");
+        }
+        else{
+            NSLog(@"save file fail");
+        }
+    });
 }
 
 #pragma mark - UITableView Delegate

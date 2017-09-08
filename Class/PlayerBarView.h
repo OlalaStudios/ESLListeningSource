@@ -16,10 +16,17 @@
 -(void)didClickPlayer;
 -(void)didFinishPlayer;
 -(void)canClickPlayer;
+-(void)didUpdateCurrentTime:(NSTimeInterval)ctime;
 
 @end
 
-@interface PlayerBarView : UIView <PlayerButtonDelegate>{
+typedef enum : NSUInteger {
+    kCategory_None,
+    kCategory_Local,
+    kCategory_Internet,
+} CategoryFile;
+
+@interface PlayerBarView : UIView <PlayerButtonDelegate,AVAudioPlayerDelegate>{
     AVPlayer *player;
     AVPlayerItem *playerItem;
     
@@ -28,11 +35,15 @@
 
 @property id<PlayerBarViewDelegate>         playerBarDelegate;
 
+@property(nonatomic, retain) AVAudioPlayer *audioPlayer;
+@property(nonatomic, assign) CategoryFile  category;
+
 @property NSString     *playerURL;
 @property IBOutlet     PlayerBarButton      *playbutton;
 @property IBOutlet     UISlider             *timeSlider;
 
 -(void)loadContent;
+-(void)start;
 -(void)stop;
 
 @end

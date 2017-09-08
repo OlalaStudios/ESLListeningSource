@@ -20,22 +20,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //load banner ads
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        _adBannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeFullBanner];
-    }
-    else{
-        _adBannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
-    }
-    
-    [_adBannerView setAdUnitID:@"ca-app-pub-4039533744360639/6641559708"];
-    [_adBannerView setDelegate:self];
-    [_adBannerView setRootViewController:self];
-    
     [_tableView setDelegate:self];
     [_tableView setDataSource:self];
+    [_tableView setBackgroundColor:[UIColor colorWithRed:213.0f/255.0f
+                                                   green:216.0f/255.0f
+                                                    blue:220.0f/255.0f
+                                                   alpha:1.0f]];
     [_tableView setAllowsMultipleSelection:NO];
-    [_tableView setSeparatorColor:[UIColor orangeColor]];
     
     [_tableView registerNib:[UINib nibWithNibName:@"TLTableViewCell" bundle:nil] forCellReuseIdentifier:@"idCellNormal"];
     
@@ -55,13 +46,32 @@
     [self.navigationController.navigationBar setTintColor:[UIColor orangeColor]];
 }
 
+-(GADBannerView*)createBanner{
+    //load banner ads
+    
+    GADBannerView *banner;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        banner = [[GADBannerView alloc] initWithAdSize:kGADAdSizeFullBanner];
+    }
+    else{
+        banner = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+    }
+    
+    [banner setAdUnitID:@"ca-app-pub-4039533744360639/6641559708"];
+    [banner setDelegate:self];
+    [banner setRootViewController:self];
+    
+    GADRequest *request = [GADRequest request];
+    request.testDevices = @[kGADSimulatorID,@"aea500effe80e30d5b9edfd352b1602d"];
+    [banner loadRequest:request];
+    
+    return banner;
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     
     [self writeUserData];
-    
-    GADRequest *request = [GADRequest request];
-//    request.testDevices = @[kGADSimulatorID,@"aea500effe80e30d5b9edfd352b1602d"];
-    [_adBannerView loadRequest:request];
     
     [self runRateApp];
 }
@@ -119,12 +129,12 @@
 {
     NSLog(@"Banner load successfull");
     
-    CGAffineTransform transform = CGAffineTransformMakeTranslation(0, bannerView.bounds.size.height*2);
-    bannerView.transform = transform;
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        bannerView.transform = CGAffineTransformIdentity;
-    }];
+//    CGAffineTransform transform = CGAffineTransformMakeTranslation(0, bannerView.bounds.size.height*2);
+//    bannerView.transform = transform;
+//    
+//    [UIView animateWithDuration:0.5 animations:^{
+//        bannerView.transform = CGAffineTransformIdentity;
+//    }];
 }
 
 -(void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
@@ -155,41 +165,64 @@
 #pragma mark - UITableView Delegate
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return nil;
+    UIView *v = [UIView new];
+    [v setBackgroundColor:[UIColor colorWithRed:213.0f/255.0f
+                                          green:216.0f/255.0f
+                                           blue:220.0f/255.0f
+                                          alpha:1.0f]];
+    return v;
 }
 
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return _adBannerView.frame.size.height;
-//}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
+}
 
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    return _adBannerView;
+    if (section % 7 == 6) {
+        return [self createBanner];
+    }
+    
+    return nil;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return _adBannerView.frame.size.height;
+    if (section % 7 == 6) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            return 100;
+        }
+        else{
+            return 50;
+        }
+    }
+    
+    return 0;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [_itemList count];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_itemList count];
+    return 1;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TLTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"idCellNormal"];
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    cell.textLabel.textColor = [UIColor grayColor];
+//    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+//    cell.textLabel.textColor = [UIColor grayColor];
     
-    NSDictionary *item = [_itemList objectAtIndex:indexPath.row];
+    NSDictionary *item = [_itemList objectAtIndex:indexPath.section];
     NSString *title     = [item objectForKey:@"title"];
     
     [[cell title] setText:title];
@@ -221,7 +254,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *item = [_itemList objectAtIndex:indexPath.row];
+    NSDictionary *item = [_itemList objectAtIndex:indexPath.section];
     
     NSString *title     = [item objectForKey:@"title"];
     NSString *playerurl = [item objectForKey:@"url"];
@@ -236,11 +269,6 @@
     [listeningController setQuestions:questions];
     
     [self.navigationController pushViewController:listeningController animated:YES];
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 54;
 }
 
 #pragma mark - Navigation
@@ -264,6 +292,23 @@
 
 - (IBAction)settingApp:(id)sender {
     
+}
+
+- (IBAction)leverSelect_Action:(id)sender {
+    
+    if([_segmentLevel selectedSegmentIndex] == 0){
+        _level = kEasy;
+    }
+    else if ([_segmentLevel selectedSegmentIndex] == 1){
+        _level = kMedium;
+    }
+    else if ([_segmentLevel selectedSegmentIndex] == 2){
+        _level = kDifficult;
+    }
+    
+    NSString *strlevel = [self convertStringLevel:_level];
+    _itemList = [metaDic valueForKey:strlevel];
+    [_tableView reloadData];
 }
 
 -(void)runRateApp

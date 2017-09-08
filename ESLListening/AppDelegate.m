@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#define ESLFolderName  @"ESLAudio"
+
 @import GoogleMobileAds;
 
 @interface AppDelegate ()
@@ -21,6 +23,15 @@
     // Override point for customization after application launch.
     
     [GADMobileAds configureWithApplicationID:@"ca-app-pub-4039533744360639~9786924109"];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *audiopath = [documentsDirectory stringByAppendingPathComponent:ESLFolderName];
+
+    if (![[NSFileManager defaultManager] fileExistsAtPath:audiopath]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:audiopath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
     
     return YES;
 }
