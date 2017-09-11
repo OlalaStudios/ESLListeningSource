@@ -1,0 +1,6 @@
+framework module RZSquaresLoading {
+  umbrella header "RZSquaresLoading-umbrella.h"
+
+  export *
+  module * { export * }
+}

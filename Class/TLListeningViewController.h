@@ -20,7 +20,8 @@
 
 @interface TLListeningViewController : UIViewController <PlayerBarViewDelegate,UITableViewDelegate,UITableViewDataSource,GADInterstitialDelegate,PKDownloadButtonDelegate>{
     
-    NSString *playerPath;
+    NSString *internetPath;
+    NSString *localPath;
     NSString *scriptPath;
     
     NSArray *questions;

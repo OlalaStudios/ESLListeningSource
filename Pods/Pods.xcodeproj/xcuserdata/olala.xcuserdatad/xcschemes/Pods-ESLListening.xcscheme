@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "26F6D66A22A8311890CB34A704206D22"
-               BuildableName = "libPods-ESLListening.a"
+               BlueprintIdentifier = "795D8FAB064EF3495A71C0A5C6A25FCF"
+               BuildableName = "Pods_ESLListening.framework"
                BlueprintName = "Pods-ESLListening"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "26F6D66A22A8311890CB34A704206D22"
-            BuildableName = "libPods-ESLListening.a"
+            BlueprintIdentifier = "795D8FAB064EF3495A71C0A5C6A25FCF"
+            BuildableName = "Pods_ESLListening.framework"
             BlueprintName = "Pods-ESLListening"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "26F6D66A22A8311890CB34A704206D22"
-            BuildableName = "libPods-ESLListening.a"
+            BlueprintIdentifier = "795D8FAB064EF3495A71C0A5C6A25FCF"
+            BuildableName = "Pods_ESLListening.framework"
             BlueprintName = "Pods-ESLListening"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>

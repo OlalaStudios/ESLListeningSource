@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '1F53003C44E17F4E78B733385CAB3716'
-               BlueprintName = 'DownloadButton'
+               BlueprintIdentifier = 'DF3DF7AC630B33CA3ABF2CA6F5FFF9C9'
+               BlueprintName = 'RZSquaresLoading'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'DownloadButton.framework'>
+               BuildableName = 'RZSquaresLoading.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -24,12 +24,18 @@
     if (_state == kNone) {
         [_avata setImage:[UIImage imageNamed:@"music.png"]];
         [_lastOpenDate setText:@""];
+        [_title setTextColor:[UIColor grayColor]];
+        [_lastOpenDate setTextColor:[UIColor grayColor]];
     }
     else if (_state == kPass){
         [_avata setImage:[UIImage imageNamed:@"pass.png"]];
+        [_title setTextColor:[UIColor orangeColor]];
+        [_lastOpenDate setTextColor:[UIColor orangeColor]];
     }
     else if (_state == kFail){
         [_avata setImage:[UIImage imageNamed:@"fail.png"]];
+        [_title setTextColor:[UIColor orangeColor]];
+        [_lastOpenDate setTextColor:[UIColor orangeColor]];
     }
 }
 

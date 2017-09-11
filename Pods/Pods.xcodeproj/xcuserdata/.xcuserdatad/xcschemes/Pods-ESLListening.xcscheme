@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '405E750752531E4A5F380C10E949BD11'
+               BlueprintIdentifier = '4958B0BB1D45A2245494D1881F1C57B4'
                BlueprintName = 'Pods-ESLListening'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPods-ESLListening.a'>
+               BuildableName = 'Pods-ESLListening.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -27,16 +27,16 @@ typedef enum : NSUInteger {
 } CategoryFile;
 
 @interface PlayerBarView : UIView <PlayerButtonDelegate,AVAudioPlayerDelegate>{
-    AVPlayer *player;
-    AVPlayerItem *playerItem;
     
     id timeObserver;
 }
 
 @property id<PlayerBarViewDelegate>         playerBarDelegate;
 
-@property(nonatomic, retain) AVAudioPlayer *audioPlayer;
-@property(nonatomic, assign) CategoryFile  category;
+@property(nonatomic, retain) AVAudioPlayer  *audioPlayer;
+@property(nonatomic, retain) AVPlayer       *internetPlayer;
+@property(nonatomic, retain) AVPlayerItem   *internetPlayerItem;
+@property(nonatomic, assign) CategoryFile   category;
 
 @property NSString     *playerURL;
 @property IBOutlet     PlayerBarButton      *playbutton;

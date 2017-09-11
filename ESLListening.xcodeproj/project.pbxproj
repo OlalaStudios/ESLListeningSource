@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9FF4601022FA754E422780E5 /* libPods-ESLListening.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B547D6CDAF3F45B53AE180 /* libPods-ESLListening.a */; };
+		B5BAC770841611ABC1228D07 /* Pods_ESLListening.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD2A6AE39A1CDFB4844DDC4 /* Pods_ESLListening.framework */; };
 		BF61F0551E1E5A5200ED824F /* transcript.png in Resources */ = {isa = PBXBuildFile; fileRef = BF61F0501E1E5A5200ED824F /* transcript.png */; };
 		BF61F0561E1E5A5200ED824F /* listening.png in Resources */ = {isa = PBXBuildFile; fileRef = BF61F0511E1E5A5200ED824F /* listening.png */; };
 		BF61F0571E1E5A5200ED824F /* checklist.png in Resources */ = {isa = PBXBuildFile; fileRef = BF61F0521E1E5A5200ED824F /* checklist.png */; };
@@ -157,10 +157,11 @@
 		EA55C9941F5EA6CB0009D7F0 /* TLSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = EA55C9931F5EA6CB0009D7F0 /* TLSlider.m */; };
 		EA55C9961F5EAB750009D7F0 /* slider.png in Resources */ = {isa = PBXBuildFile; fileRef = EA55C9951F5EAB750009D7F0 /* slider.png */; };
 		EA55C9981F5EB8C80009D7F0 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = EA55C9971F5EB8C80009D7F0 /* download.png */; };
+		EAD5F1361F66977300EE87D9 /* downloaded.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD5F1351F66977300EE87D9 /* downloaded.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		25B547D6CDAF3F45B53AE180 /* libPods-ESLListening.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ESLListening.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FD2A6AE39A1CDFB4844DDC4 /* Pods_ESLListening.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ESLListening.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A587951FCB615D9E8AE9A2C /* Pods-ESLListening.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ESLListening.release.xcconfig"; path = "Pods/Target Support Files/Pods-ESLListening/Pods-ESLListening.release.xcconfig"; sourceTree = "<group>"; };
 		5A9F0A9E9742A7930B3DA069 /* Pods-ESLListening.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ESLListening.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ESLListening/Pods-ESLListening.debug.xcconfig"; sourceTree = "<group>"; };
 		BF61F0501E1E5A5200ED824F /* transcript.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transcript.png; sourceTree = "<group>"; };
@@ -328,6 +329,7 @@
 		EA55C9931F5EA6CB0009D7F0 /* TLSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLSlider.m; sourceTree = "<group>"; };
 		EA55C9951F5EAB750009D7F0 /* slider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider.png; sourceTree = "<group>"; };
 		EA55C9971F5EB8C80009D7F0 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
+		EAD5F1351F66977300EE87D9 /* downloaded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downloaded.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,7 +350,7 @@
 				BF61F0631E1E7C8500ED824F /* AudioToolbox.framework in Frameworks */,
 				BF61F0611E1E7C7700ED824F /* AdSupport.framework in Frameworks */,
 				BFF52E4C1E166EB0008EC4B1 /* GoogleMobileAds.framework in Frameworks */,
-				9FF4601022FA754E422780E5 /* libPods-ESLListening.a in Frameworks */,
+				B5BAC770841611ABC1228D07 /* Pods_ESLListening.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,7 +381,7 @@
 				BF61F0641E1E7C9100ED824F /* AVFoundation.framework */,
 				BF61F0621E1E7C8500ED824F /* AudioToolbox.framework */,
 				BF61F0601E1E7C7700ED824F /* AdSupport.framework */,
-				25B547D6CDAF3F45B53AE180 /* libPods-ESLListening.a */,
+				2FD2A6AE39A1CDFB4844DDC4 /* Pods_ESLListening.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -576,6 +578,7 @@
 		BFD473E81E07D414009FCA91 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EAD5F1351F66977300EE87D9 /* downloaded.png */,
 				EA55C9971F5EB8C80009D7F0 /* download.png */,
 				EA55C9951F5EAB750009D7F0 /* slider.png */,
 				BFACE2311E23AC4F0021E10F /* setting.png */,
@@ -684,6 +687,7 @@
 					BFD473CD1E07CCA9009FCA91 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = KREB2MXHVA;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -780,6 +784,7 @@
 				BFEB53141E1D0C100064F775 /* EnglishLanguageCenter.rtf in Resources */,
 				BF91CF681E1120E700167D1E /* NicetoMeetYou.rtf in Resources */,
 				BF91CF721E1126CE00167D1E /* PrivateLanguageTutor.rtf in Resources */,
+				EAD5F1361F66977300EE87D9 /* downloaded.png in Resources */,
 				BF707CA91E13A02200EB6DAC /* BacktoSchoolSupplies.rtf in Resources */,
 				BFB3C77E1E1E23DF00C5385F /* IdentityTheft.rtf in Resources */,
 				BF707CAB1E13A3EA00EB6DAC /* BakingCookies.rtf in Resources */,
@@ -950,6 +955,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -969,6 +975,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_MODULE_NAME = "ESL Listening";
 				SDKROOT = iphoneos8.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -995,6 +1002,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1007,6 +1015,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_MODULE_NAME = "ESL Listening";
 				SDKROOT = iphoneos8.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1018,6 +1027,7 @@
 			baseConfigurationReference = 5A9F0A9E9742A7930B3DA069 /* Pods-ESLListening.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ESLListening",
@@ -1034,6 +1044,9 @@
 				PRODUCT_MODULE_NAME = "ESL Listening";
 				PRODUCT_NAME = "ESL Listening";
 				SDKROOT = iphoneos8.1;
+				SWIFT_OBJC_BRIDGING_HEADER = "Class/ESLListening-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1042,6 +1055,7 @@
 			baseConfigurationReference = 5A587951FCB615D9E8AE9A2C /* Pods-ESLListening.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ESLListening",
@@ -1058,6 +1072,8 @@
 				PRODUCT_MODULE_NAME = "ESL Listening";
 				PRODUCT_NAME = "ESL Listening";
 				SDKROOT = iphoneos8.1;
+				SWIFT_OBJC_BRIDGING_HEADER = "Class/ESLListening-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

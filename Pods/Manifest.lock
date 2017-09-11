@@ -1,29 +1,15 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
-    - AFNetworking/NSURLSession
   - DownloadButton (0.1.0)
+  - RZSquaresLoading (1.1)
 
 DEPENDENCIES:
-  - AFNetworking
   - DownloadButton
+  - RZSquaresLoading
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   DownloadButton: 49a21a89e0d7d1b42d9134f79aaa40e727cd57c3
+  RZSquaresLoading: c0aefa508119a76497424829e439e1b8b0d12fdc
 
-PODFILE CHECKSUM: 51188d27ea3ffc2dec97bf704684c81f6c248e58
+PODFILE CHECKSUM: 0784ff22046818660da990e627e7ad03e38dfe2e
 
 COCOAPODS: 1.1.1

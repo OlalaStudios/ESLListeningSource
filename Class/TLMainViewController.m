@@ -147,7 +147,7 @@
 -(void)didFinishLessonWithScore:(NSUInteger)score total:(NSUInteger)total{
     
     NSIndexPath *currentLesson = [_tableView indexPathForSelectedRow];
-    NSDictionary *item = [_itemList objectAtIndex:currentLesson.row];
+    NSDictionary *item = [_itemList objectAtIndex:currentLesson.section];
     NSString *title     = [item objectForKey:@"title"];
 
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[_userData valueForKey:[self convertStringLevel:_level]]];
@@ -280,20 +280,6 @@
 }
 */
 
-#pragma mark - ActionSheet Level
-- (IBAction)levelSelect:(id)sender {
-    UIActionSheet *level = [[UIActionSheet alloc] initWithTitle:@"Choose level"
-                                                       delegate:self
-                                              cancelButtonTitle:nil
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:@"Easy",@"Medium",@"Difficult", nil];
-    [level showInView:self.view];
-}
-
-- (IBAction)settingApp:(id)sender {
-    
-}
-
 - (IBAction)leverSelect_Action:(id)sender {
     
     if([_segmentLevel selectedSegmentIndex] == 0){
@@ -323,35 +309,5 @@
     //... Perhaps do stuff
     
     [Appirater appLaunched:YES];
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0: //easy
-        {
-            [_btnLevel setTitle:@"easy"];
-            _level = kEasy;
-        }
-            break;
-        case 1: //medium
-        {
-            [_btnLevel setTitle:@"medium"];
-            _level = kMedium;
-        }
-            break;
-        case 2: //difficult
-        {
-            [_btnLevel setTitle:@"difficult"];
-            _level = kDifficult;
-        }
-            break;
-        default:
-            break;
-    }
-    
-    NSString *strlevel = [self convertStringLevel:_level];
-    _itemList = [metaDic valueForKey:strlevel];
-    [_tableView reloadData];
 }
 @end

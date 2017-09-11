@@ -10,6 +10,7 @@
 #import "TLQuestionTableViewCell.h"
 #import "TLQuestionHeaderCell.h"
 #import "UIImage+PKDownloadButton.h"
+#import <RZSquaresLoading/RZSquaresLoading.h>
 
 #define ESLFolderName  @"ESLAudio"
 
@@ -20,7 +21,7 @@ typedef enum Answer: NSUInteger {
 } Answer;
 
 @interface TLListeningViewController (){
-    
+    RZSquaresLoading *loadingView;
 }
 
 @end
@@ -28,6 +29,8 @@ typedef enum Answer: NSUInteger {
 @implementation TLListeningViewController{
     NSMutableData *receivedData;
     long long expectedBytes;
+    
+    CategoryFile _category;
 }
 @synthesize lessonDelegate = _lessonDelegate;
 
@@ -60,17 +63,30 @@ typedef enum Answer: NSUInteger {
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *audiopath = [[documentsDirectory stringByAppendingPathComponent:ESLFolderName] stringByAppendingPathComponent:[self.title stringByAppendingString:@".mp3"]];
     
+    _category = kCategory_None;
+    
     if ([self checklocalfile:audiopath]) {
-        [_playerBar setPlayerURL:audiopath];
+        
+        localPath = audiopath;
+        _category = kCategory_Local;
+        
+        [_playerBar setPlayerURL:localPath];
         [_playerBar setPlayerBarDelegate:self];
-        [_playerBar setCategory:kCategory_Local];
+        [_playerBar setCategory:_category];
         [_playerBar loadContent];
+        
+        [_btdownload setState:kPKDownloadButtonState_Downloaded];
     }
     else{
-        [_playerBar setPlayerURL:playerPath];
+        
+        _category = kCategory_Internet;
+        
+        [_playerBar setPlayerURL:internetPath];
         [_playerBar setPlayerBarDelegate:self];
-        [_playerBar setCategory:kCategory_Internet];
+        [_playerBar setCategory:_category];
         [_playerBar loadContent];
+        
+        [_btdownload setState:kPKDownloadButtonState_StartDownload];
     }
     
     //show ads
@@ -89,11 +105,16 @@ typedef enum Answer: NSUInteger {
     self.btdownload.delegate = self;
     
     [self.btdownload.startDownloadButton setImage:[UIImage imageNamed:@"download"] forState:UIControlStateNormal];
+    [self.btdownload.downloadedButton setImage:[UIImage imageNamed:@"downloaded"] forState:UIControlStateNormal];
 }
 
 -(BOOL)checklocalfile:(NSString*)strUrl{
     
-    return YES;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:strUrl]) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -164,7 +185,7 @@ typedef enum Answer: NSUInteger {
     switch (state) {
         case kPKDownloadButtonState_StartDownload:
             self.btdownload.state = kPKDownloadButtonState_Pending;
-            [self startDownload:playerPath];
+            [self startDownload:internetPath];
             break;
         case kPKDownloadButtonState_Pending:
             self.btdownload.state = kPKDownloadButtonState_StartDownload;
@@ -174,6 +195,7 @@ typedef enum Answer: NSUInteger {
             break;
         case kPKDownloadButtonState_Downloaded:
             self.btdownload.state = kPKDownloadButtonState_StartDownload;
+            [self removeDownloaded:localPath];
             break;
         default:
             NSAssert(NO, @"unsupported state");
@@ -230,11 +252,24 @@ typedef enum Answer: NSUInteger {
 -(void)didClickPlayer
 {
     _startLearning = YES;
+    
+    CGRect rect = [self.view bounds];
+
+    if (_category == kCategory_Internet) {
+        loadingView = [[RZSquaresLoading alloc] initWithFrame:CGRectMake(rect.size.width/2 - 36, rect.size.height/2 - 36, 72, 72)];
+        loadingView.color = [UIColor orangeColor];
+        
+        [self.view setAlpha:0.5];
+        [self.view addSubview:loadingView];
+    }
 }
 
 -(void)canClickPlayer
 {
-    
+    if (_category == kCategory_Internet) {
+        [self.view setAlpha:1.0];
+        [loadingView removeFromSuperview];
+    }
 }
 
 -(int)checkAnswer:(NSIndexPath*)selection anwser:(NSString*)anwser{
@@ -259,7 +294,7 @@ typedef enum Answer: NSUInteger {
 }
 
 -(void)setPlayerURL:(NSString *)url{
-    playerPath = url;
+    internetPath = url;
 }
 
 -(void)setScriptURL:(NSString *)url{
@@ -301,6 +336,22 @@ typedef enum Answer: NSUInteger {
                                                            startImmediately:YES];
     
     [connection start];
+}
+
+-(void)removeDownloaded:(NSString*)strUrl{
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:strUrl]) {
+        [[NSFileManager defaultManager] removeItemAtPath:strUrl error:nil];
+        
+        _category = kCategory_Internet;
+        
+        [_playerBar setPlayerURL:internetPath];
+        [_playerBar setPlayerBarDelegate:self];
+        [_playerBar setCategory:_category];
+        [_playerBar loadContent];
+        
+        [_btdownload setState:kPKDownloadButtonState_StartDownload];
+    }
 }
 
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -345,6 +396,16 @@ typedef enum Answer: NSUInteger {
         
         if([receivedData writeToFile:audiopath atomically:YES]){
             NSLog(@"save file success");
+            
+            localPath = audiopath;
+            _category = kCategory_Local;
+            
+            [_playerBar setPlayerURL:localPath];
+            [_playerBar setPlayerBarDelegate:self];
+            [_playerBar setCategory:_category];
+            [_playerBar loadContent];
+            
+            [_btdownload setState:kPKDownloadButtonState_Downloaded];
         }
         else{
             NSLog(@"save file fail");
