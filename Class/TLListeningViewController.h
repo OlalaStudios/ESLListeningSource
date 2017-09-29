@@ -28,10 +28,12 @@
     NSUInteger score;
     NSUInteger total;
     
-    BOOL       _startLearning;
+    BOOL        _startLearning;
+    BOOL        _adsloaded;
+    BOOL        _enableAds;
     
     GADInterstitial *_interstitial;
-    BOOL        _adsloaded;
+    
 }
 
 @property id<TLListeningViewDelegate>   lessonDelegate;
@@ -42,6 +44,7 @@
 @property (weak, nonatomic) IBOutlet UILabel        *currentTime;
 @property (weak, nonatomic) IBOutlet PKDownloadButton *btdownload;
 
+-(void)setEnableAds:(BOOL)enableAds;
 -(void)setPlayerURL:(NSString*)url;
 -(void)setScriptURL:(NSString*)url;
 -(void)setQuestions:(NSArray*)question;

@@ -33,7 +33,76 @@
         [[NSFileManager defaultManager] createDirectoryAtPath:audiopath withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
+    //register notification
+    UIUserNotificationCategory *notiSetting = [[UIUserNotificationCategory alloc] init];
+    NSSet *set = [NSSet setWithObject:notiSetting];
+    
+    UIUserNotificationSettings *notificationsetting = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge|UIUserNotificationTypeSound|UIUserNotificationTypeAlert   categories:set];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:notificationsetting];
+    
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [calendar components:(NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond)
+                                               fromDate:[NSDate date]];
+    [components setHour: 20];
+    [components setMinute: 0];
+    [components setSecond: 0];
+    
+    [calendar setTimeZone: [NSTimeZone defaultTimeZone]];
+    NSDate *fireDate = [calendar dateFromComponents:components];
+    
+    NSString *strBody = @"";
+    
+    if ([fireDate compare:[NSDate date]] == NSOrderedDescending)
+    {
+        components.day = components.day+1;
+        fireDate = [calendar dateFromComponents:components];
+        
+        int index = random() % 3;
+        if (index == 0) {
+            strBody = @"Today,You have not completed any lessons yet.";
+        }
+        else if (index == 1){
+             strBody = @"Hey!\nLogin and start the lessons.";
+        }
+        else if (index == 2){
+            strBody = @"Hey!\nLong time no study.";
+        }
+        
+    }
+    else{
+        strBody = @"Hey!\nComeback and take the lessons";
+    }
+    
+    [self createNotificationAt:fireDate alertBody:strBody];
+    
     return YES;
+}
+
+-(void)createNotificationAt:(NSDate*) fireDate alertBody:(NSString*)body{
+    
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    
+    notification.fireDate = fireDate;
+    notification.alertBody = body;
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    notification.repeatInterval = NSCalendarUnitDay;
+    notification.applicationIconBadgeNumber = 1;
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+}
+
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification{
+    
+    UIApplicationState appState = [[UIApplication sharedApplication] applicationState];
+    
+    if (appState == UIApplicationStateActive) {
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

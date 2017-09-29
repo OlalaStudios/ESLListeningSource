@@ -10,4 +10,6 @@ target 'ESLListening' do
   # Pods for ESLListening
   pod 'DownloadButton'
   pod 'RZSquaresLoading'
+  pod 'SCLAlertView-Objective-C'
+  pod 'DRPLoadingSpinner'
 end

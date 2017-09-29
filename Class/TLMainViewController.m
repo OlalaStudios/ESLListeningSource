@@ -13,7 +13,10 @@
 @end
 
 @implementation TLMainViewController{
-    NSDictionary *metaDic;
+    NSDictionary        *metaDic;
+    NSMutableDictionary *adsDic;
+    
+    BOOL _adsloaded;
 }
 
 - (void)viewDidLoad {
@@ -41,9 +44,13 @@
     //User data
     _userData = [[NSMutableDictionary alloc] initWithDictionary:[self userData]];
     
+    adsDic = [[NSMutableDictionary alloc] initWithCapacity:0];
+    
     [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTranslucent:NO];
     [self.navigationController.navigationBar setTintColor:[UIColor orangeColor]];
+    
+    _adsloaded = NO;
 }
 
 -(GADBannerView*)createBanner{
@@ -62,18 +69,43 @@
     [banner setDelegate:self];
     [banner setRootViewController:self];
     
-    GADRequest *request = [GADRequest request];
-    request.testDevices = @[kGADSimulatorID,@"aea500effe80e30d5b9edfd352b1602d"];
-    [banner loadRequest:request];
-    
     return banner;
+}
+
+-(void)loadRequest:(GADBannerView*)banner{
+    GADRequest *request = [GADRequest request];
+//    request.testDevices = @[kGADSimulatorID,@"aea500effe80e30d5b9edfd352b1602d"];
+    [banner loadRequest:request];
+}
+
+-(void)reloadAds{
+    
+    for (NSNumber *section in adsDic) {
+        [self loadRequest:[adsDic objectForKey:section]];
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    if (!_adsloaded) {
+        //show ads
+        _interstitial = [self createAndLoadInterstitial];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     
     [self writeUserData];
     
+    [self reloadAds];
     [self runRateApp];
+    
+    displayCount++;
+    
+    if (displayCount % 5 == 0 && _adsloaded == YES) {
+        [_interstitial presentFromRootViewController:self];
+        _adsloaded = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -143,6 +175,34 @@
     NSLog(@"%@",error);
 }
 
+-(GADInterstitial*)createAndLoadInterstitial
+{
+    _interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-4039533744360639/8118292903"];
+    
+    GADRequest *request = [GADRequest request];
+//    request.testDevices = @[kGADSimulatorID,@"aea500effe80e30d5b9edfd352b1602d"];
+    
+    [_interstitial setDelegate:self];
+    [_interstitial loadRequest:request];
+    
+    return _interstitial;
+}
+
+#pragma mark - Ads Delegate
+-(void)interstitialDidReceiveAd:(GADInterstitial *)ad
+{
+    _interstitial = ad;
+    _adsloaded = YES;
+
+    NSLog(@"Success to load interstitial ads");
+}
+
+-(void)interstitialDidFailToPresentScreen:(GADInterstitial *)ad
+{
+    _adsloaded = NO;
+    NSLog(@"Fail to load interstitial ads");
+}
+
 #pragma mark - TLListeningView Delegate
 -(void)didFinishLessonWithScore:(NSUInteger)score total:(NSUInteger)total{
     
@@ -181,7 +241,16 @@
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (section % 7 == 6) {
-        return [self createBanner];
+        
+        if (![adsDic objectForKey:[NSNumber numberWithInteger:section]]) {
+            
+            GADBannerView *banner = [self createBanner];
+            
+            [adsDic setObject:banner forKey:[NSNumber numberWithInteger:section]];
+            [self loadRequest:banner];
+        }
+        
+        return [adsDic objectForKey:[NSNumber numberWithInteger:section]];
     }
     
     return nil;
@@ -213,7 +282,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    return 65;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -267,6 +336,13 @@
     [listeningController setPlayerURL:playerurl];
     [listeningController setScriptURL:scripturl];
     [listeningController setQuestions:questions];
+    
+    if (displayCount % 3 == 0) {
+        [listeningController setEnableAds:YES];
+    }
+    else{
+        [listeningController setEnableAds:NO];
+    }
     
     [self.navigationController pushViewController:listeningController animated:YES];
 }

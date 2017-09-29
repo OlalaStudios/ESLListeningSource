@@ -20,7 +20,7 @@ typedef enum TLevel: NSUInteger {
     kDifficult,
 } TLevel;
 
-@interface TLMainViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,TLListeningViewDelegate,GADBannerViewDelegate,AppiraterDelegate>{
+@interface TLMainViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,TLListeningViewDelegate,GADBannerViewDelegate,AppiraterDelegate,GADInterstitialDelegate>{
     
     NSMutableArray          *_itemList;
     TLevel                  _level;
@@ -28,6 +28,9 @@ typedef enum TLevel: NSUInteger {
     NSMutableDictionary     *_userData;
     
     GADBannerView           *_adBannerView;
+    GADInterstitial         *_interstitial;
+    
+    NSInteger               displayCount;
 }
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *btnLevel;

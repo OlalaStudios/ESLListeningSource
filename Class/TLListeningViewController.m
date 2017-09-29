@@ -10,6 +10,8 @@
 #import "TLQuestionTableViewCell.h"
 #import "TLQuestionHeaderCell.h"
 #import "UIImage+PKDownloadButton.h"
+#import <DRPLoadingSpinner/DRPLoadingSpinner.h>
+#import <SCLAlertView_Objective_C/SCLAlertView.h>
 #import <RZSquaresLoading/RZSquaresLoading.h>
 
 #define ESLFolderName  @"ESLAudio"
@@ -90,7 +92,9 @@ typedef enum Answer: NSUInteger {
     }
     
     //show ads
-    _interstitial = [self createAndLoadInterstitial];
+    if (_enableAds) {
+        _interstitial = [self createAndLoadInterstitial];
+    }
 }
 
 -(void)setupDownloadButton{
@@ -140,7 +144,7 @@ typedef enum Answer: NSUInteger {
     _interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-4039533744360639/8118292903"];
     
     GADRequest *request = [GADRequest request];
-    request.testDevices = @[kGADSimulatorID,@"aea500effe80e30d5b9edfd352b1602d"];
+//    request.testDevices = @[kGADSimulatorID,@"aea500effe80e30d5b9edfd352b1602d"];
     
     [_interstitial setDelegate:self];
     [_interstitial loadRequest:request];
@@ -153,14 +157,16 @@ typedef enum Answer: NSUInteger {
 #pragma mark - Ads Delegate
 -(void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    if (!_startLearning) {
-        [ad presentFromRootViewController:self];
-        _adsloaded = YES;
-    }
-    else{
+//    if (!_startLearning) {
+//        [ad presentFromRootViewController:self];
+//    }
+//    else{
         _interstitial = ad;
-        _adsloaded = NO;
-    }
+//    }
+    
+    _adsloaded = YES;
+
+    NSLog(@"Success to load interstitial ads");
 }
 
 -(void)interstitialDidFailToPresentScreen:(GADInterstitial *)ad
@@ -228,15 +234,18 @@ typedef enum Answer: NSUInteger {
         score = score + [self checkAnswer:answer anwser:dapan];
     }
     
-    
     NSString *messageAnswer = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)score,(unsigned long)totalquestion];
-    UIAlertView *scoreAlert = [[UIAlertView alloc] initWithTitle:@"Your Score" message:messageAnswer delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [scoreAlert show];
+    SCLAlertView *scoreAlert = [[SCLAlertView alloc] initWithNewWindow];
+    [scoreAlert addButton:@"Done" actionBlock:^{
+        
+        if (_adsloaded) {
+            [_interstitial presentFromRootViewController:self];
+            _adsloaded = NO;
+        }
+        
+    }];
     
-    if (!_adsloaded) {
-        [_interstitial presentFromRootViewController:self];
-        _adsloaded = YES;
-    }
+    [scoreAlert showCustom:[UIImage imageNamed:@"olalaicon"] color:[UIColor orangeColor] title:@"Your Score" subTitle:messageAnswer closeButtonTitle:nil duration:0.0f];
 }
 
 -(void)didUpdateCurrentTime:(NSTimeInterval)ctime{
@@ -244,7 +253,7 @@ typedef enum Answer: NSUInteger {
     NSUInteger durationSeconds = ctime;
     NSUInteger minutes = floor(durationSeconds % 3600 / 60);
     NSUInteger seconds = floor(durationSeconds % 3600 % 60);
-    NSString *time = [NSString stringWithFormat:@"%02ld:%02ld", minutes, seconds];
+    NSString *time = [NSString stringWithFormat:@"%02ld:%02ld", (unsigned long)minutes, seconds];
     
     [_currentTime setText:time];
 }
@@ -291,6 +300,10 @@ typedef enum Answer: NSUInteger {
     }
     
     return 0;
+}
+
+-(void)setEnableAds:(BOOL)enableAds{
+    _enableAds = enableAds;
 }
 
 -(void)setPlayerURL:(NSString *)url{

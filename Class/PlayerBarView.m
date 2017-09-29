@@ -48,6 +48,8 @@
     else{
         [_audioPlayer stop];
     }
+    
+    [localTimer invalidate];
 }
 
 -(void)dealloc
@@ -103,8 +105,6 @@
         
     }
     
-    [localTimer invalidate];
-    
     [_playbutton setPlayState:kPlay];
     [_playbutton setNeedsDisplay];
     
@@ -131,7 +131,7 @@
     
     [_timeSlider setMaximumValue:duration];
     [_timeSlider setMinimumValue:0];
-    [_timeSlider setValue:0];
+    [_timeSlider setValue:[_audioPlayer currentTime]];
 }
 
 -(void)resetProgressBar{
